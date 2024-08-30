@@ -29,10 +29,6 @@ on:
 permissions:
   contents: read
 
-env:
-  CONAN_LOGIN_USERNAME: ${{ secrets.CONAN_USER }}
-  CONAN_PASSWORD: ${{ secrets.CONAN_PASS }}
-
 jobs:
   conan-recipe-version:
     uses: lulzbot3d/cura-le-workflows/.github/workflows/conan-recipe-version.yml@main
@@ -48,3 +44,4 @@ jobs:
       unit_test_cmd: 'ctest --output-junit plugin_test.xml'
       unit_test_dir: 'build/Release'
       build: true
+    secrets: inherit
