@@ -7,7 +7,7 @@ include(Catch)
 set(SRC_TEST main.cpp)
 
 add_executable(tests ${SRC_TEST})
-target_link_libraries(tests PUBLIC ${DEPS} Catch2::Catch2WithMain curaengine_plugin_gradual_flow_lib)
+target_link_libraries(tests PUBLIC ${DEPS} Catch2::Catch2WithMain curaenginele_plugin_gradual_flow_lib)
 
 catch_discover_tests(tests
         TEST_PREFIX

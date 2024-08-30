@@ -6,7 +6,7 @@ on:
       conan_id:
         required: false
         type: string
-        description: 'The full conan package ID, e.g. "curaengine_plugin_gradual_flow/1.2.3@ultimaker/stable"'
+        description: 'The full conan package ID, e.g. "curaenginele_plugin_gradual_flow/0.1.0@lulzbot3d/stable"'
       create_latest_alias:
         required: true
         default: false
@@ -35,13 +35,13 @@ on:
 
 jobs:
   conan-recipe-version:
-    uses: ultimaker/cura-workflows/.github/workflows/conan-recipe-version.yml@main
+    uses: lulzbot3d/cura-le-workflows/.github/workflows/conan-recipe-version.yml@main
     with:
-      project_name: curaengine_plugin_gradual_flow
+      project_name: curaenginele_plugin_gradual_flow
 
   conan-package-export:
     needs: [ conan-recipe-version ]
-    uses: ultimaker/cura-workflows/.github/workflows/conan-recipe-export.yml@main
+    uses: lulzbot3d/cura-le-workflows/.github/workflows/conan-recipe-export.yml@main
     with:
       recipe_id_full: ${{ needs.conan-recipe-version.outputs.recipe_id_full }}
       recipe_id_latest: ${{ needs.conan-recipe-version.outputs.recipe_id_latest }}

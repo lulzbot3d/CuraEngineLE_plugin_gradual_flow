@@ -14,14 +14,14 @@ from jinja2 import Template
 required_conan_version = ">=1.58.0 <2.0.0"
 
 
-class CuraEngineGradualFlowPluginConan(ConanFile):
-    name = "curaengine_plugin_gradual_flow"
-    description = "CuraEngine plugin for gradually smoothing the flow to limit high-flow jumps"
-    author = "UltiMaker"
-    license = "agpl-3.0"
-    url = "https://github.com/Ultimaker/CuraEngine_plugin_gradual_flow"
+class CuraEngineLEGradualFlowPluginConan(ConanFile):
+    name = "curaenginele_plugin_gradual_flow"
+    description = "CuraEngineLE plugin for gradually smoothing the flow to limit high-flow jumps"
+    author = "UltiMaker, FAME3D LLC."
+    license = "AGPL-3.0"
+    url = "https://github.com/lulzbot3d/CuraEngineLE_plugin_gradual_flow"
     homepage = "https://ultimaker.com"
-    topics = ("protobuf", "asio", "plugin", "curaengine", "gcode-generation", "3D-printing")
+    topics = ("protobuf", "asio", "plugin", "curaenginele", "gcode-generation", "3D-printing")
     package_type = "application"
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -53,7 +53,7 @@ class CuraEngineGradualFlowPluginConan(ConanFile):
 
     @property
     def _cura_plugin_name(self):
-        return "CuraEngineGradualFlow"
+        return "CuraEngineLEGradualFlow"
 
     @property
     def _api_version(self):
@@ -178,7 +178,7 @@ class CuraEngineGradualFlowPluginConan(ConanFile):
         self.requires("neargye-semver/0.3.0")
 
     def build_requirements(self):
-        self.test_requires("standardprojectsettings/[>=0.1.0]@ultimaker/stable")
+        self.test_requires("standardprojectsettings/[>=0.1.0]@lulzbot/stable")
         if not self.conf.get("tools.build:skip_test", False, check_type=bool):
             self.test_requires("catch2/3.4.0")
 
@@ -225,12 +225,12 @@ class CuraEngineGradualFlowPluginConan(ConanFile):
     def package(self):
         copy(self, pattern="LICENSE", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
         ext = ".exe" if self.settings.os == "Windows" else ""
-        copy(self, pattern=f"curaengine_plugin_gradual_flow{ext}", dst=os.path.join(self.package_folder, "bin"), src=os.path.join(self.build_folder))
+        copy(self, pattern=f"curaenginele_plugin_gradual_flow{ext}", dst=os.path.join(self.package_folder, "bin"), src=os.path.join(self.build_folder))
 
         copy(self, pattern=f"bundled_{self._cura_plugin_name}.json", dst=os.path.join(self.package_folder, "res", "bundled_packages"), src=os.path.join(self.source_folder, self._cura_plugin_name))
         copy(self, pattern="*", dst=os.path.join(self.package_folder, "res", "plugins", self._cura_plugin_name), src=os.path.join(self.source_folder, self._cura_plugin_name))
 
     def deploy(self):
         ext = ".exe" if self.settings.os == "Windows" else ""
-        copy(self, pattern=f"curaengine_plugin_gradual_flow{ext}", dst=self.install_folder, src=os.path.join(self.package_folder, "bin"))
+        copy(self, pattern=f"curaenginele_plugin_gradual_flow{ext}", dst=self.install_folder, src=os.path.join(self.package_folder, "bin"))
         copy(self, pattern="*", dst=os.path.join(self.install_folder, self._cura_plugin_name), src=os.path.join(self.package_folder, "res"))
