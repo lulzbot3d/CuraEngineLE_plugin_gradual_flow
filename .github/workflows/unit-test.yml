@@ -5,6 +5,8 @@ on:
       - 'include/**'
       - 'src/**'
       - 'tests/**'
+      - 'conanfile.py'
+      - 'conandata.yml'
       - 'CMakeLists.txt'
       - '.github/workflows/unit-test.yml'
       - '.github/workflows/unit-test-post.yml'
